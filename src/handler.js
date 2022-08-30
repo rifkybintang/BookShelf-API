@@ -84,6 +84,112 @@ const addBooks = (request, h) => {
   return response;
 };
 
+// kedua mendapatkan semua bukunya disini
+const getAllBooks = (request, h) => {
+  const { name, reading, finished } = request.query;
+
+  if (name) {
+    const lowName = name.toLowerCase();
+
+    const response = h.response({
+      status: 'success',
+      data: {
+        books: books
+          .filter((n) => n.name === lowName)
+          .map((book) => ({
+            id: book.id,
+            name: book.name,
+            publisher: book.publisher,
+          })),
+      },
+    });
+    response.code(200);
+    return response;
+  }
+
+  if (reading === '1') {
+    const response = h.response({
+      status: 'success',
+      data: {
+        books: books
+          .filter((r) => r.reading === true)
+          .map((book) => ({
+            id: book.id,
+            name: book.name,
+            publisher: book.publisher,
+          })),
+      },
+    });
+    response.code(200);
+    return response;
+  }
+
+  if (reading === '0') {
+    const response = h.response({
+      status: 'success',
+      data: {
+        books: books
+          .filter((r) => r.reading === false)
+          .map((book) => ({
+            id: book.id,
+            name: book.name,
+            publisher: book.publisher,
+          })),
+      },
+    });
+    response.code(200);
+    return response;
+  }
+
+  if (finished === '1') {
+    const response = h.response({
+      status: 'success',
+      data: {
+        books: books
+          .filter((f) => f.finished === true)
+          .map((book) => ({
+            id: book.id,
+            name: book.name,
+            publisher: book.publisher,
+          })),
+      },
+    });
+    response.code(200);
+    return response;
+  }
+
+  if (finished === '0') {
+    const response = h.response({
+      status: 'success',
+      data: {
+        books: books
+          .filter((f) => f.finished === false)
+          .map((book) => ({
+            id: book.id,
+            name: book.name,
+            publisher: book.publisher,
+          })),
+      },
+    });
+    response.code(200);
+    return response;
+  }
+
+  const response = h.response({
+    status: 'success',
+    data: {
+      books: books.map((m) => ({
+        id: m.id,
+        name: m.name,
+        publisher: m.publisher,
+      })),
+    },
+  });
+  response.code(200);
+  return response;
+};
+
 module.exports = {
   addBooks,
+  getAllBooks,
 };
