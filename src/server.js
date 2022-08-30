@@ -5,7 +5,14 @@ const init = async () => {
   const server = Hapi.server({
     port: 5000,
     host: 'localhost',
+    routes: {
+      cors: {
+        origin: ['*'],
+      },
+    },
   });
+
+  // ini yang sering bikin error server, routes nya
   server.route(routes);
 
   await server.start();

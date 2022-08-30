@@ -1,18 +1,22 @@
+const {
+  addBooks,
+} = require('./handler');
+
+// ini dia routes nya hmm kenapa error ya siapa lagi kalau bukan handler
 const routes = [
   {
     method: 'GET',
     path: '/',
     handler: () => {
-      return 'test menggunakan GET';
+      return 'ini halaman home';
     },
   },
   {
     method: 'POST',
-    path: '/',
-    handler: () => {
-      return 'Test menggunakan POST';
-    },
+    path: '/books',
+    handler: addBooks,
   },
+
 ];
 
 module.exports = routes;
